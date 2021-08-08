@@ -1,0 +1,72 @@
+{
+  "author": "",
+  "description": "",
+  "extensionNamespace": "",
+  "fullName": "",
+  "helpPath": "",
+  "iconUrl": "",
+  "name": "DOMwindowManager",
+  "previewIconUrl": "",
+  "shortDescription": "",
+  "version": "",
+  "tags": [],
+  "dependencies": [],
+  "eventsFunctions": [
+    {
+      "description": "",
+      "fullName": "",
+      "functionType": "Action",
+      "name": "onFirstSceneLoaded",
+      "private": false,
+      "sentence": "",
+      "events": [
+        {
+          "colorB": 228,
+          "colorG": 176,
+          "colorR": 74,
+          "creationTime": 0,
+          "disabled": false,
+          "folded": true,
+          "name": "CSS",
+          "source": "",
+          "type": "BuiltinCommonInstructions::Group",
+          "events": [
+            {
+              "disabled": false,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::JsCode",
+              "inlineCode": "let styl = document.createElement(\"style\")\ndocument.head.appendChild(styl)\nstyl.innerHTML = '@import \"https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css\";'\nstyl.innerHTML += `html{ overflow:hidden }\n.alert-background{\n    position: fixed;\n    width: 100%;\n    height: 100%;\n    z-index: 999;\n    background: rgba(0,0,0,0.5);\n    backdrop-filter: blur(5px);\n}\n.win-alert{\n    z-index: 1000!important;\n}\n.is-fixed{\n    position: fixed;\n    z-index: 99;\n    top:0;\n    left:0;\n}\n.window{\n    min-width: 140px;\n    min-height: 100px;\n    padding: 0;\n    overflow: hidden;\n    border-radius: 0px;\n}\n.window header{\n    user-select: none;\n}\n.window header span{\n    width: calc(100% - 18px);\n    display: block;\n    padding: 5px;\n    font-size: 12px!important;\n    height:28px;\n}\n.window header button{\n    width: 18px;\n    height: 28px;\n    padding: 0;\n    line-height: normal;\n    font-size: 10px!important;\n}\n.window-content{\n    padding: 5px;\n    font-size: 12px!important;\n    max-height: 600px;\n    max-width: 400px;\n    overflow: auto\n}\n`\n\nlet app = document.createElement('div')\napp.id = \"DOM\"\ndocument.body.appendChild(app)",
+              "parameterObjects": "",
+              "useStrict": true,
+              "eventsSheetExpanded": false
+            }
+          ],
+          "parameters": []
+        },
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "let canvas = document.querySelector('canvas')\n\ncanvas.addEventListener(\"mouseenter\", ()=>{\n    runtimeScene.getGame().getVariables().get(\"hasFocus\").setBoolean(true)\n    if($)\n        $('canvas').focus()\n})\n\ncanvas.addEventListener(\"mouseleave\", ()=>{\n    runtimeScene.getGame().getVariables().get(\"hasFocus\").setBoolean(false)\n})\n\ngdjs._windowManager = {\n    _window:[],\n    _zIndex: 99,\n    getWindow(id){\n        let win = this._window.filter( w => w.id == id )\n        return win[0] || false\n    },\n    getWindowByUUID(uuid){\n        let win = this._window.filter( w => w.uuid == uuid )\n        return win[0] || false\n    },\n    getWindowIndexByUUID(uuid){\n        let index = null\n        this._window.map( (w, id) => {\n            if(w.uuid == uuid)\n                index = id \n        })\n        return index\n    },\n    removeWindow(uuid){\n        let index = this.getWindowIndexByUUID(uuid)\n        if(index != null)\n            this._window.splice(index, 1)\n    },\n    /*\n        Remove DOM element and reference from _window\n    */\n    closeWindow(uuid){\n        let _window = this.getWindowByUUID(uuid)\n        _window.el.remove()\n        this.removeWindow(uuid)\n    },\n    newWindow(opts = {}){\n        let win = {\n            id: opts.id || null,\n            uuid: this.UUID(),\n            title:      opts.title || 'window',\n            content:    opts.content || [],\n            onready:    opts.onready || function(){},\n            onremove:   opts.onremove || function(){},\n        }\n        this._window.push(win)\n        $('#DOM').json2html({}, this.winTemplate(win))\n        /*\n            Setup sizes\n        */\n        if(opts.size){\n            if(opts.size.maxwidth)\n                win.el.style['max-width'] = opts.size.maxwidth\n            if(opts.size.maxheight)\n                win.el.style['max-height'] = opts.size.maxheight\n            win.el.style.width = opts.size.width\n            win.el.style.height = opts.size.height\n        }\n        /*\n            Setup position\n        */\n        if(opts.pos){\n            win.el.style.left = opts.pos.left\n            win.el.style.top = opts.pos.top\n        }\n        return win\n    },\n    reorderWin(uuid=0) {\n        let tmp = this.getWindowByUUID(uuid)\n        if(tmp){\n            this.removeWindow(uuid)\n            this._window.push(tmp)\n        }\n        this._window.forEach( (win, id) =>{\n            win.el.style.zIndex = gdjs._windowManager._zIndex+id\n        })\n        // var tmp = array[indexA];\n        // array[indexA] = array[indexB];\n        // array[indexB] = tmp;\n    },\n    winTemplate: win => {\n        return {\n            '<>':'div',\n                id: win.id,\n                'data-uuid': win.uuid,\n                'class':'is-fixed window has-background-dark',\n                'onready': function(){\n                    let _window = gdjs._windowManager.getWindowByUUID(win.uuid)\n                    let index   = gdjs._windowManager.getWindowIndexByUUID(win.uuid)\n                    _window.el = this[0]\n                    $(this).on('mousedown', function(){\n                        gdjs._windowManager.reorderWin(win.uuid)\n                        // console.log(\"Active: \"+win.uuid)\n                    })\n                    gdjs._windowManager.dragElement(_window.el)\n                    gdjs._windowManager.reorderWin()\n                    if(win.onready) win.onready(_window) //send reference of window back\n                },\n                'html':[\n                    {\"<>\":\"header\",\n                        \"html\":[\n                            {\"<>\":\"span\", \"class\":\"has-background-black has-text-white is-pulled-left\", \"text\": win.title },\n                            {\"<>\":\"div\", \"class\": \"btns has-background-dark is-pulled-right\", \"html\":[\n                                {\"<>\":\"button\",\"class\":\"button is-danger is-radiusless is-small\",\"onclick\": function(){\n                                    let _window = gdjs._windowManager.getWindowByUUID(win.uuid)\n                                    if(win.onremove) win.onremove(_window)\n                                    gdjs._windowManager.closeWindow(win.uuid)\n                                 } ,\"text\":\"x\"}\n                            ]}\n                        ],\n                    },\n                    {\"<>\":\"div\",\n                        \"class\": \"window-content\", \n                        \"html\": win.content \n                    },\n                ]\n        }\n    },\n    UUID: () => {\n        return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>\n            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)\n        )\n    },\n    dragElement: elmnt => {\n        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;\n        if (elmnt.querySelector(\"header span\")) {\n            /* if present, the header is where you move the DIV from:*/\n            elmnt.querySelector(\"header span\").onmousedown = dragMouseDown;\n        } else {\n            /* otherwise, move the DIV from anywhere inside the DIV:*/\n            elmnt.onmousedown = dragMouseDown;\n        }\n\n        function dragMouseDown(e) {\n            e = e || window.event;\n            e.preventDefault();\n            // get the mouse cursor position at startup:\n            pos3 = e.clientX;\n            pos4 = e.clientY;\n            document.onmouseup = closeDragElement;\n            // call a function whenever the cursor moves:\n            document.onmousemove = elementDrag;\n        }\n\n        function elementDrag(e) {\n            e = e || window.event;\n            e.preventDefault();\n            // calculate the new cursor position:\n            pos1 = pos3 - e.clientX;\n            pos2 = pos4 - e.clientY;\n            pos3 = e.clientX;\n            pos4 = e.clientY;\n            // set the element's new position:\n            elmnt.setAttribute('data-x', (elmnt.offsetTop - pos2) )\n            elmnt.setAttribute('data-y', (elmnt.offsetLeft - pos1) )\n            elmnt.style.top = (elmnt.offsetTop - pos2) + \"px\";\n            elmnt.style.left = (elmnt.offsetLeft - pos1) + \"px\";\n        }\n\n        function closeDragElement() {\n            /* stop moving when mouse button is released:*/\n            document.onmouseup = null;\n            document.onmousemove = null;\n        }\n    }\n}",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "Init Window Manager",
+      "fullName": "Init Window Manager",
+      "functionType": "Action",
+      "name": "Function",
+      "private": false,
+      "sentence": "Init Window Manager",
+      "events": [],
+      "parameters": [],
+      "objectGroups": []
+    }
+  ],
+  "eventsBasedBehaviors": []
+}

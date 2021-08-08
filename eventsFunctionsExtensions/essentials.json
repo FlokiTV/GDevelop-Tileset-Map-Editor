@@ -1,0 +1,1563 @@
+{
+  "author": "",
+  "description": "",
+  "extensionNamespace": "",
+  "fullName": "🌟 Essentials",
+  "helpPath": "",
+  "iconUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMy4wLjMsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iSWNvbnMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMzIgMzIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8cGF0aCBkPSJNMjkuMywxMi43Yy0wLjEtMC40LTAuNS0wLjctMS0wLjdoLTguN0wxNywzLjdjLTAuMS0wLjQtMC41LTAuNy0xLTAuN3MtMC44LDAuMy0xLDAuN0wxMi40LDEySDMuN2MtMC40LDAtMC44LDAuMy0xLDAuNw0KCWMtMC4xLDAuNCwwLDAuOSwwLjQsMS4xbDcsNS4xbC0yLjcsOC4zYy0wLjEsMC40LDAsMC45LDAuNCwxLjFjMC40LDAuMywwLjgsMC4zLDEuMiwwbDctNS4xbDcsNS4xYzAuMiwwLjEsMC40LDAuMiwwLjYsMC4yDQoJczAuNC0wLjEsMC42LTAuMmMwLjQtMC4zLDAuNS0wLjcsMC40LTEuMWwtMi43LTguM2w3LTUuMUMyOS4yLDEzLjYsMjkuNCwxMy4xLDI5LjMsMTIuN3oiLz4NCjwvc3ZnPg0K",
+  "name": "Essentials",
+  "previewIconUrl": "https://resources.gdevelop-app.com/assets/Icons/Glyphster Pack/Master/SVG/UI Essentials/UI Essentials_star.svg",
+  "shortDescription": "",
+  "version": "",
+  "tags": [],
+  "dependencies": [],
+  "eventsFunctions": [
+    {
+      "description": "",
+      "fullName": "",
+      "functionType": "Action",
+      "name": "onFirstSceneLoaded",
+      "private": false,
+      "sentence": "",
+      "events": [
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "gdjs._es = {}\n\ngdjs._es.uuid = {\n    gen: () => {\n        return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>\n            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)\n        )\n    },\n    getObject: uuid =>{\n        let obj = runtimeScene._allInstancesList.filter( e =>{\n            if(!e._behaviorsTable.items.EsUUID) return false\n            return e._behaviorsTable.items.EsUUID._behaviorData.UUID == uuid\n        })\n        return obj ? obj[0] : false\n    }\n}\n",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "Generate UUID",
+      "fullName": "Generate UUID",
+      "functionType": "StringExpression",
+      "name": "genUUID",
+      "private": false,
+      "sentence": "",
+      "events": [
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "let uuid = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>\n    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)\n  );\neventsFunctionContext.returnValue = uuid",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "Get object X by UUID",
+      "fullName": "Get object X by UUID",
+      "functionType": "StringExpression",
+      "name": "getObjectCenterXByUUID",
+      "private": false,
+      "sentence": "Get object X by UUID _PARAM1_",
+      "events": [
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "let uuid = eventsFunctionContext.getArgument(\"UUID\")\nif(!gdjs._uuid.getObject(uuid)) eventsFunctionContext.returnValue = 0\neventsFunctionContext.returnValue = gdjs._es.uuid.getObject(uuid).getCenterXInScene()",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "codeOnly": false,
+          "defaultValue": "",
+          "description": "UUID",
+          "longDescription": "",
+          "name": "UUID",
+          "optional": false,
+          "supplementaryInformation": "",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Get object Y by UUID",
+      "fullName": "Get object Y by UUID",
+      "functionType": "StringExpression",
+      "name": "getObjectCenterYByUUID",
+      "private": false,
+      "sentence": "Get object X by UUID _PARAM1_",
+      "events": [
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "let uuid = eventsFunctionContext.getArgument(\"UUID\")\nif(!gdjs._uuid.getObject(uuid)) eventsFunctionContext.returnValue = 0\neventsFunctionContext.returnValue = gdjs._es.uuid.getObject(uuid).getCenterYInScene()",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "codeOnly": false,
+          "defaultValue": "",
+          "description": "UUID",
+          "longDescription": "",
+          "name": "UUID",
+          "optional": false,
+          "supplementaryInformation": "",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Get object by UUID",
+      "fullName": "Get object by UUID",
+      "functionType": "Condition",
+      "name": "_getObjectByUUID",
+      "private": false,
+      "sentence": "Get object by UUID _PARAM1_",
+      "events": [
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "let uuid = eventsFunctionContext.getArgument(\"UUID\")\neventsFunctionContext.returnValue = gdjs._es.uuid.getObject(uuid)\n",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "codeOnly": false,
+          "defaultValue": "",
+          "description": "UUID",
+          "longDescription": "",
+          "name": "UUID",
+          "optional": false,
+          "supplementaryInformation": "",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Check if something is true",
+      "fullName": "⁉ IF",
+      "functionType": "Condition",
+      "name": "_IF",
+      "private": false,
+      "sentence": "⁉ IF",
+      "events": [
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::Standard",
+          "conditions": [],
+          "actions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "SetGlobalVariableAsBoolean"
+              },
+              "parameters": [
+                "_IF",
+                "="
+              ],
+              "subInstructions": []
+            },
+            {
+              "type": {
+                "inverted": false,
+                "value": "SetReturnBoolean"
+              },
+              "parameters": [
+                "True"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "events": []
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "ELSE",
+      "fullName": "⁉ ELSE IF",
+      "functionType": "Condition",
+      "name": "_ELSE_IF",
+      "private": false,
+      "sentence": "⁉ ELSE IF",
+      "events": [
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::Standard",
+          "conditions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "GlobalVariableAsBoolean"
+              },
+              "parameters": [
+                "_IF",
+                "True"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "actions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "SetReturnBoolean"
+              },
+              "parameters": [
+                "False"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "events": []
+        },
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::Standard",
+          "conditions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "GlobalVariableAsBoolean"
+              },
+              "parameters": [
+                "_IF",
+                "False"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "actions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "SetReturnBoolean"
+              },
+              "parameters": [
+                "True"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "events": []
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "END IF",
+      "fullName": "⁉ END IF",
+      "functionType": "Action",
+      "name": "__END_IF",
+      "private": false,
+      "sentence": "⁉ END IF",
+      "events": [
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::Standard",
+          "conditions": [],
+          "actions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "SetGlobalVariableAsBoolean"
+              },
+              "parameters": [
+                "_IF",
+                "True"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "events": []
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "📌 Pin object position relative to other object ",
+      "fullName": "📌 Pin objects",
+      "functionType": "Action",
+      "name": "__PinObjects",
+      "private": false,
+      "sentence": "📌 Pin _PARAM1_ on _PARAM2_; Reset last pin _PARAM3_",
+      "events": [
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::Standard",
+          "conditions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "GetArgumentAsBoolean"
+              },
+              "parameters": [
+                "\"Reset\""
+              ],
+              "subInstructions": []
+            },
+            {
+              "type": {
+                "inverted": false,
+                "value": "BuiltinCommonInstructions::Once"
+              },
+              "parameters": [],
+              "subInstructions": []
+            }
+          ],
+          "actions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "ModVarObjet"
+              },
+              "parameters": [
+                "OBJ",
+                "angle",
+                "=",
+                "0"
+              ],
+              "subInstructions": []
+            },
+            {
+              "type": {
+                "inverted": false,
+                "value": "ModVarObjet"
+              },
+              "parameters": [
+                "OBJ",
+                "dist",
+                "=",
+                "0"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "events": []
+        },
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::Standard",
+          "conditions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "VarObjet"
+              },
+              "parameters": [
+                "OBJ",
+                "dist",
+                "=",
+                "0"
+              ],
+              "subInstructions": []
+            },
+            {
+              "type": {
+                "inverted": false,
+                "value": "VarObjet"
+              },
+              "parameters": [
+                "OBJ",
+                "angle",
+                "=",
+                "0"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "actions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "ModVarObjet"
+              },
+              "parameters": [
+                "OBJ",
+                "angle",
+                "=",
+                "AngleBetweenPositions(OBJ.CenterX(), OBJ.CenterY(), Container.CenterX(), Container.CenterY())"
+              ],
+              "subInstructions": []
+            },
+            {
+              "type": {
+                "inverted": false,
+                "value": "ModVarObjet"
+              },
+              "parameters": [
+                "OBJ",
+                "dist",
+                "=",
+                "DistanceBetweenPositions(OBJ.CenterX(), OBJ.CenterY(), Container.CenterX(), Container.CenterY())"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "events": []
+        },
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::Standard",
+          "conditions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "VarObjet"
+              },
+              "parameters": [
+                "OBJ",
+                "angle",
+                "!=",
+                "0"
+              ],
+              "subInstructions": []
+            },
+            {
+              "type": {
+                "inverted": false,
+                "value": "VarObjet"
+              },
+              "parameters": [
+                "OBJ",
+                "dist",
+                "!=",
+                "0"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "actions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "MettreAutour"
+              },
+              "parameters": [
+                "OBJ",
+                "Container",
+                "OBJ.Variable(dist)",
+                "180+OBJ.Variable(angle)"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "events": []
+        }
+      ],
+      "parameters": [
+        {
+          "codeOnly": false,
+          "defaultValue": "",
+          "description": "Object to be pinned",
+          "longDescription": "",
+          "name": "OBJ",
+          "optional": false,
+          "supplementaryInformation": "",
+          "type": "objectList"
+        },
+        {
+          "codeOnly": false,
+          "defaultValue": "",
+          "description": "Object to receive pin",
+          "longDescription": "",
+          "name": "Container",
+          "optional": false,
+          "supplementaryInformation": "",
+          "type": "objectList"
+        },
+        {
+          "codeOnly": false,
+          "defaultValue": "",
+          "description": "Reset last pin",
+          "longDescription": "",
+          "name": "Reset",
+          "optional": false,
+          "supplementaryInformation": "",
+          "type": "yesorno"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Set Object Position by Point",
+      "fullName": "Set Object Position by Point",
+      "functionType": "Action",
+      "name": "__setObjectPositionByPoint",
+      "private": false,
+      "sentence": "Set _PARAM1_ position X _PARAM2_ Y _PARAM3_ by point _PARAM4_; Angle Offset _PARAM5_",
+      "events": [
+        {
+          "disabled": true,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::Standard",
+          "conditions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "GetArgumentAsBoolean"
+              },
+              "parameters": [
+                "\"Reset\""
+              ],
+              "subInstructions": []
+            },
+            {
+              "type": {
+                "inverted": false,
+                "value": "BuiltinCommonInstructions::Once"
+              },
+              "parameters": [],
+              "subInstructions": []
+            }
+          ],
+          "actions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "ModVarObjet"
+              },
+              "parameters": [
+                "OBJ",
+                "angle",
+                "=",
+                "0"
+              ],
+              "subInstructions": []
+            },
+            {
+              "type": {
+                "inverted": false,
+                "value": "ModVarObjet"
+              },
+              "parameters": [
+                "OBJ",
+                "dist",
+                "=",
+                "0"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "events": []
+        },
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::Standard",
+          "conditions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "VarObjet"
+              },
+              "parameters": [
+                "OBJ",
+                "_dist",
+                "=",
+                "0"
+              ],
+              "subInstructions": []
+            },
+            {
+              "type": {
+                "inverted": false,
+                "value": "VarObjet"
+              },
+              "parameters": [
+                "OBJ",
+                "_angle",
+                "=",
+                "0"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "actions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "ModVarObjet"
+              },
+              "parameters": [
+                "OBJ",
+                "_angle",
+                "=",
+                "AngleBetweenPositions(OBJ.CenterX(), OBJ.CenterY(), OBJ.PointX(GetArgumentAsString(\"Point\")), OBJ.PointY(GetArgumentAsString(\"Point\")))"
+              ],
+              "subInstructions": []
+            },
+            {
+              "type": {
+                "inverted": false,
+                "value": "ModVarObjet"
+              },
+              "parameters": [
+                "OBJ",
+                "_dist",
+                "=",
+                "DistanceBetweenPositions(OBJ.CenterX(), OBJ.CenterY(), OBJ.PointX(GetArgumentAsString(\"Point\")), OBJ.PointY(GetArgumentAsString(\"Point\")))"
+              ],
+              "subInstructions": []
+            },
+            {
+              "type": {
+                "inverted": false,
+                "value": "DevToolkit::ConsoleLog"
+              },
+              "parameters": [
+                "",
+                "GetArgumentAsString(\"Point\")",
+                ""
+              ],
+              "subInstructions": []
+            },
+            {
+              "type": {
+                "inverted": false,
+                "value": "DevToolkit::ConsoleLog"
+              },
+              "parameters": [
+                "",
+                "ToString(DistanceBetweenPositions(OBJ.CenterX(), OBJ.CenterY(), OBJ.PointX(GetArgumentAsString(\"Point\")), OBJ.PointY(GetArgumentAsString(\"Point\"))))",
+                ""
+              ],
+              "subInstructions": []
+            }
+          ],
+          "events": []
+        },
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::Standard",
+          "conditions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "VarObjet"
+              },
+              "parameters": [
+                "OBJ",
+                "_angle",
+                "!=",
+                "0"
+              ],
+              "subInstructions": []
+            },
+            {
+              "type": {
+                "inverted": false,
+                "value": "VarObjet"
+              },
+              "parameters": [
+                "OBJ",
+                "_dist",
+                "!=",
+                "0"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "actions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "MettreAutourPos"
+              },
+              "parameters": [
+                "OBJ",
+                "GetArgumentAsNumber(\"X\")",
+                "GetArgumentAsNumber(\"Y\")",
+                "OBJ.Variable(_dist)",
+                "OBJ.Variable(_angle)+GetArgumentAsNumber(\"AngleOffset\")"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "events": [
+            {
+              "disabled": true,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "GetArgumentAsBoolean"
+                  },
+                  "parameters": [
+                    "\"isRotate\""
+                  ],
+                  "subInstructions": []
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "MettreAutourPos"
+                  },
+                  "parameters": [
+                    "OBJ",
+                    "GetArgumentAsNumber(\"X\")",
+                    "GetArgumentAsNumber(\"Y\")",
+                    "OBJ.Variable(_dist)",
+                    "OBJ.Variable(_angle)+CameraAngle()-180"
+                  ],
+                  "subInstructions": []
+                }
+              ],
+              "events": []
+            },
+            {
+              "disabled": true,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "inverted": true,
+                    "value": "GetArgumentAsBoolean"
+                  },
+                  "parameters": [
+                    "\"isRotate\""
+                  ],
+                  "subInstructions": []
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "MettreAutourPos"
+                  },
+                  "parameters": [
+                    "OBJ",
+                    "GetArgumentAsNumber(\"X\")",
+                    "GetArgumentAsNumber(\"Y\")",
+                    "OBJ.Variable(_dist)",
+                    "OBJ.Variable(_angle)-180"
+                  ],
+                  "subInstructions": []
+                }
+              ],
+              "events": []
+            }
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "codeOnly": false,
+          "defaultValue": "",
+          "description": "Object",
+          "longDescription": "",
+          "name": "OBJ",
+          "optional": false,
+          "supplementaryInformation": "Sprite",
+          "type": "objectList"
+        },
+        {
+          "codeOnly": false,
+          "defaultValue": "",
+          "description": "X",
+          "longDescription": "",
+          "name": "X",
+          "optional": false,
+          "supplementaryInformation": "",
+          "type": "expression"
+        },
+        {
+          "codeOnly": false,
+          "defaultValue": "",
+          "description": "Y",
+          "longDescription": "",
+          "name": "Y",
+          "optional": false,
+          "supplementaryInformation": "",
+          "type": "expression"
+        },
+        {
+          "codeOnly": false,
+          "defaultValue": "",
+          "description": "Point",
+          "longDescription": "",
+          "name": "Point",
+          "optional": false,
+          "supplementaryInformation": "",
+          "type": "string"
+        },
+        {
+          "codeOnly": false,
+          "defaultValue": "",
+          "description": "Angle Offset",
+          "longDescription": "",
+          "name": "AngleOffset",
+          "optional": false,
+          "supplementaryInformation": "",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    }
+  ],
+  "eventsBasedBehaviors": [
+    {
+      "description": "",
+      "fullName": "",
+      "name": "EsUUID",
+      "objectType": "",
+      "eventsFunctions": [
+        {
+          "description": "",
+          "fullName": "",
+          "functionType": "Action",
+          "name": "onCreated",
+          "private": false,
+          "sentence": "",
+          "events": [
+            {
+              "disabled": false,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [],
+              "actions": [
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "Essentials::EsUUID::SetPropertyUUID"
+                  },
+                  "parameters": [
+                    "Object",
+                    "Behavior",
+                    "=",
+                    "Essentials::genUUID()"
+                  ],
+                  "subInstructions": []
+                }
+              ],
+              "events": []
+            }
+          ],
+          "parameters": [
+            {
+              "codeOnly": false,
+              "defaultValue": "",
+              "description": "Object",
+              "longDescription": "",
+              "name": "Object",
+              "optional": false,
+              "supplementaryInformation": "",
+              "type": "object"
+            },
+            {
+              "codeOnly": false,
+              "defaultValue": "",
+              "description": "Behavior",
+              "longDescription": "",
+              "name": "Behavior",
+              "optional": false,
+              "supplementaryInformation": "Essentials::EsUUID",
+              "type": "behavior"
+            }
+          ],
+          "objectGroups": []
+        },
+        {
+          "description": "Get Object by UUID",
+          "fullName": "Get Object by UUID",
+          "functionType": "Condition",
+          "name": "_getObjectByUUID",
+          "private": false,
+          "sentence": "Get _PARAM0_ with UUID _PARAM2_",
+          "events": [
+            {
+              "disabled": false,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "StrEqual"
+                  },
+                  "parameters": [
+                    "Object.Behavior::PropertyUUID()",
+                    "=",
+                    "GetArgumentAsString(\"UUID\")"
+                  ],
+                  "subInstructions": []
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "SetReturnBoolean"
+                  },
+                  "parameters": [
+                    "True"
+                  ],
+                  "subInstructions": []
+                }
+              ],
+              "events": []
+            },
+            {
+              "disabled": false,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "StrEqual"
+                  },
+                  "parameters": [
+                    "Object.Behavior::PropertyUUID()",
+                    "!=",
+                    "GetArgumentAsString(\"UUID\")"
+                  ],
+                  "subInstructions": []
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "SetReturnBoolean"
+                  },
+                  "parameters": [
+                    "False"
+                  ],
+                  "subInstructions": []
+                }
+              ],
+              "events": []
+            }
+          ],
+          "parameters": [
+            {
+              "codeOnly": false,
+              "defaultValue": "",
+              "description": "Object",
+              "longDescription": "",
+              "name": "Object",
+              "optional": false,
+              "supplementaryInformation": "",
+              "type": "object"
+            },
+            {
+              "codeOnly": false,
+              "defaultValue": "",
+              "description": "Behavior",
+              "longDescription": "",
+              "name": "Behavior",
+              "optional": false,
+              "supplementaryInformation": "Essentials::EsUUID",
+              "type": "behavior"
+            },
+            {
+              "codeOnly": false,
+              "defaultValue": "",
+              "description": "Object UUID",
+              "longDescription": "",
+              "name": "UUID",
+              "optional": false,
+              "supplementaryInformation": "",
+              "type": "string"
+            }
+          ],
+          "objectGroups": []
+        },
+        {
+          "description": "GetUUID",
+          "fullName": "GetUUID",
+          "functionType": "StringExpression",
+          "name": "getUUID",
+          "private": false,
+          "sentence": "",
+          "events": [
+            {
+              "disabled": false,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [],
+              "actions": [
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "SetReturnString"
+                  },
+                  "parameters": [
+                    "Object.Behavior::PropertyUUID()"
+                  ],
+                  "subInstructions": []
+                }
+              ],
+              "events": []
+            }
+          ],
+          "parameters": [
+            {
+              "codeOnly": false,
+              "defaultValue": "",
+              "description": "Object",
+              "longDescription": "",
+              "name": "Object",
+              "optional": false,
+              "supplementaryInformation": "",
+              "type": "object"
+            },
+            {
+              "codeOnly": false,
+              "defaultValue": "",
+              "description": "Behavior",
+              "longDescription": "",
+              "name": "Behavior",
+              "optional": false,
+              "supplementaryInformation": "Essentials::EsUUID",
+              "type": "behavior"
+            }
+          ],
+          "objectGroups": []
+        }
+      ],
+      "propertyDescriptors": [
+        {
+          "value": "0",
+          "type": "String",
+          "label": "UUID",
+          "description": "",
+          "extraInformation": [],
+          "hidden": true,
+          "name": "UUID"
+        },
+        {
+          "value": "0",
+          "type": "String",
+          "label": "0 to disable",
+          "description": "",
+          "extraInformation": [],
+          "hidden": true,
+          "name": "Prefix"
+        }
+      ]
+    },
+    {
+      "description": "",
+      "fullName": "",
+      "name": "EsPin",
+      "objectType": "",
+      "eventsFunctions": [
+        {
+          "description": "",
+          "fullName": "",
+          "functionType": "Action",
+          "name": "doStepPreEvents",
+          "private": false,
+          "sentence": "",
+          "events": [
+            {
+              "disabled": false,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "Essentials::EsPin::PropertyTargetUUID"
+                  },
+                  "parameters": [
+                    "Object",
+                    "Behavior",
+                    "!=",
+                    "\"0\""
+                  ],
+                  "subInstructions": []
+                }
+              ],
+              "actions": [],
+              "events": [
+                {
+                  "disabled": false,
+                  "folded": false,
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "inverted": false,
+                        "value": "VarObjet"
+                      },
+                      "parameters": [
+                        "Object",
+                        "dist",
+                        "=",
+                        "0"
+                      ],
+                      "subInstructions": []
+                    },
+                    {
+                      "type": {
+                        "inverted": false,
+                        "value": "VarObjet"
+                      },
+                      "parameters": [
+                        "Object",
+                        "angle",
+                        "=",
+                        "0"
+                      ],
+                      "subInstructions": []
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "inverted": false,
+                        "value": "ModVarObjet"
+                      },
+                      "parameters": [
+                        "Object",
+                        "angle",
+                        "=",
+                        "AngleBetweenPositions( Object.CenterX(), Object.CenterY(), ToNumber(Essentials::getObjectCenterXByUUID(Object.Behavior::PropertyTargetUUID())), ToNumber(Essentials::getObjectCenterYByUUID(Object.Behavior::PropertyTargetUUID())) )"
+                      ],
+                      "subInstructions": []
+                    },
+                    {
+                      "type": {
+                        "inverted": false,
+                        "value": "ModVarObjet"
+                      },
+                      "parameters": [
+                        "Object",
+                        "dist",
+                        "=",
+                        "DistanceBetweenPositions( Object.CenterX(), Object.CenterY(), ToNumber(Essentials::getObjectCenterXByUUID(Object.Behavior::PropertyTargetUUID())), ToNumber(Essentials::getObjectCenterYByUUID(Object.Behavior::PropertyTargetUUID())) )"
+                      ],
+                      "subInstructions": []
+                    }
+                  ],
+                  "events": []
+                },
+                {
+                  "disabled": false,
+                  "folded": false,
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "inverted": false,
+                        "value": "VarObjet"
+                      },
+                      "parameters": [
+                        "Object",
+                        "angle",
+                        "!=",
+                        "0"
+                      ],
+                      "subInstructions": []
+                    },
+                    {
+                      "type": {
+                        "inverted": false,
+                        "value": "VarObjet"
+                      },
+                      "parameters": [
+                        "Object",
+                        "dist",
+                        "!=",
+                        "0"
+                      ],
+                      "subInstructions": []
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "inverted": false,
+                        "value": "MettreAutourPos"
+                      },
+                      "parameters": [
+                        "Object",
+                        "ToNumber(Essentials::getObjectCenterXByUUID(Object.Behavior::PropertyTargetUUID()))",
+                        "ToNumber(Essentials::getObjectCenterYByUUID(Object.Behavior::PropertyTargetUUID()))",
+                        "Object.Variable(dist)",
+                        "180+Object.Variable(angle)"
+                      ],
+                      "subInstructions": []
+                    }
+                  ],
+                  "events": []
+                },
+                {
+                  "disabled": false,
+                  "folded": false,
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [],
+                  "actions": [],
+                  "events": []
+                }
+              ]
+            }
+          ],
+          "parameters": [
+            {
+              "codeOnly": false,
+              "defaultValue": "",
+              "description": "Object",
+              "longDescription": "",
+              "name": "Object",
+              "optional": false,
+              "supplementaryInformation": "",
+              "type": "object"
+            },
+            {
+              "codeOnly": false,
+              "defaultValue": "",
+              "description": "Behavior",
+              "longDescription": "",
+              "name": "Behavior",
+              "optional": false,
+              "supplementaryInformation": "Essentials::EsPin",
+              "type": "behavior"
+            }
+          ],
+          "objectGroups": []
+        },
+        {
+          "description": "",
+          "fullName": "",
+          "functionType": "Action",
+          "name": "doStepPostEvents",
+          "private": false,
+          "sentence": "",
+          "events": [
+            {
+              "disabled": false,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "Essentials::EsPin::PropertyTargetUUID"
+                  },
+                  "parameters": [
+                    "Object",
+                    "Behavior",
+                    "!=",
+                    "\"0\""
+                  ],
+                  "subInstructions": []
+                }
+              ],
+              "actions": [],
+              "events": [
+                {
+                  "disabled": false,
+                  "folded": false,
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "inverted": true,
+                        "value": "Essentials::_getObjectByUUID"
+                      },
+                      "parameters": [
+                        "",
+                        "Object.Behavior::PropertyTargetUUID()",
+                        ""
+                      ],
+                      "subInstructions": []
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "inverted": false,
+                        "value": "ModVarObjet"
+                      },
+                      "parameters": [
+                        "Object",
+                        "dist",
+                        "=",
+                        "0"
+                      ],
+                      "subInstructions": []
+                    },
+                    {
+                      "type": {
+                        "inverted": false,
+                        "value": "ModVarObjet"
+                      },
+                      "parameters": [
+                        "Object",
+                        "angle",
+                        "=",
+                        "0"
+                      ],
+                      "subInstructions": []
+                    },
+                    {
+                      "type": {
+                        "inverted": false,
+                        "value": "Essentials::EsPin::SetPropertyTargetUUID"
+                      },
+                      "parameters": [
+                        "Object",
+                        "Behavior",
+                        "=",
+                        "\"0\""
+                      ],
+                      "subInstructions": []
+                    }
+                  ],
+                  "events": [
+                    {
+                      "disabled": false,
+                      "folded": false,
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [
+                        {
+                          "type": {
+                            "inverted": false,
+                            "value": "Essentials::EsPin::PropertyDelete"
+                          },
+                          "parameters": [
+                            "Object",
+                            "Behavior"
+                          ],
+                          "subInstructions": []
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "type": {
+                            "inverted": false,
+                            "value": "Delete"
+                          },
+                          "parameters": [
+                            "Object",
+                            ""
+                          ],
+                          "subInstructions": []
+                        }
+                      ],
+                      "events": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "parameters": [
+            {
+              "codeOnly": false,
+              "defaultValue": "",
+              "description": "Object",
+              "longDescription": "",
+              "name": "Object",
+              "optional": false,
+              "supplementaryInformation": "",
+              "type": "object"
+            },
+            {
+              "codeOnly": false,
+              "defaultValue": "",
+              "description": "Behavior",
+              "longDescription": "",
+              "name": "Behavior",
+              "optional": false,
+              "supplementaryInformation": "Essentials::EsPin",
+              "type": "behavior"
+            }
+          ],
+          "objectGroups": []
+        },
+        {
+          "description": "Set target UUID ",
+          "fullName": "Set target UUID ",
+          "functionType": "Action",
+          "name": "setTargetUUID",
+          "private": false,
+          "sentence": "_PARAM0_ set target UUID: _PARAM2_ ",
+          "events": [
+            {
+              "disabled": false,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [],
+              "actions": [
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "Essentials::EsPin::SetPropertyTargetUUID"
+                  },
+                  "parameters": [
+                    "Object",
+                    "Behavior",
+                    "=",
+                    "GetArgumentAsString(\"UUID\")"
+                  ],
+                  "subInstructions": []
+                }
+              ],
+              "events": []
+            }
+          ],
+          "parameters": [
+            {
+              "codeOnly": false,
+              "defaultValue": "",
+              "description": "Object",
+              "longDescription": "",
+              "name": "Object",
+              "optional": false,
+              "supplementaryInformation": "",
+              "type": "object"
+            },
+            {
+              "codeOnly": false,
+              "defaultValue": "",
+              "description": "Behavior",
+              "longDescription": "",
+              "name": "Behavior",
+              "optional": false,
+              "supplementaryInformation": "Essentials::EsPin",
+              "type": "behavior"
+            },
+            {
+              "codeOnly": false,
+              "defaultValue": "",
+              "description": "UUID",
+              "longDescription": "",
+              "name": "UUID",
+              "optional": false,
+              "supplementaryInformation": "",
+              "type": "string"
+            }
+          ],
+          "objectGroups": []
+        },
+        {
+          "description": "Get Target UUID",
+          "fullName": "Get Target UUID",
+          "functionType": "StringExpression",
+          "name": "getTargetUUID",
+          "private": false,
+          "sentence": "",
+          "events": [
+            {
+              "disabled": false,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [],
+              "actions": [
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "SetReturnString"
+                  },
+                  "parameters": [
+                    "Object.Behavior::PropertyTargetUUID()"
+                  ],
+                  "subInstructions": []
+                }
+              ],
+              "events": []
+            }
+          ],
+          "parameters": [
+            {
+              "codeOnly": false,
+              "defaultValue": "",
+              "description": "Object",
+              "longDescription": "",
+              "name": "Object",
+              "optional": false,
+              "supplementaryInformation": "",
+              "type": "object"
+            },
+            {
+              "codeOnly": false,
+              "defaultValue": "",
+              "description": "Behavior",
+              "longDescription": "",
+              "name": "Behavior",
+              "optional": false,
+              "supplementaryInformation": "Essentials::EsPin",
+              "type": "behavior"
+            }
+          ],
+          "objectGroups": []
+        }
+      ],
+      "propertyDescriptors": [
+        {
+          "value": "0",
+          "type": "String",
+          "label": "TargetUUID",
+          "description": "",
+          "extraInformation": [],
+          "hidden": false,
+          "name": "TargetUUID"
+        },
+        {
+          "value": "",
+          "type": "Boolean",
+          "label": "Delete if target don't exist",
+          "description": "",
+          "extraInformation": [],
+          "hidden": false,
+          "name": "Delete"
+        }
+      ]
+    },
+    {
+      "description": "",
+      "fullName": "",
+      "name": "EsLife",
+      "objectType": "",
+      "eventsFunctions": [],
+      "propertyDescriptors": []
+    },
+    {
+      "description": "",
+      "fullName": "",
+      "name": "EsTarget",
+      "objectType": "",
+      "eventsFunctions": [],
+      "propertyDescriptors": []
+    }
+  ]
+}

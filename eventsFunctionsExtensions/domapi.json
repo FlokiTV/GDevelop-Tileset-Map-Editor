@@ -1,0 +1,302 @@
+{
+  "author": "",
+  "description": "",
+  "extensionNamespace": "",
+  "fullName": "",
+  "helpPath": "",
+  "iconUrl": "",
+  "name": "DOMapi",
+  "previewIconUrl": "",
+  "shortDescription": "",
+  "version": "",
+  "tags": [],
+  "dependencies": [],
+  "eventsFunctions": [
+    {
+      "description": "",
+      "fullName": "",
+      "functionType": "Action",
+      "name": "onFirstSceneLoaded",
+      "private": false,
+      "sentence": "",
+      "events": [
+        {
+          "colorB": 228,
+          "colorG": 176,
+          "colorR": 74,
+          "creationTime": 0,
+          "disabled": false,
+          "folded": true,
+          "name": "AddScript",
+          "source": "",
+          "type": "BuiltinCommonInstructions::Group",
+          "events": [
+            {
+              "disabled": false,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::JsCode",
+              "inlineCode": "const addScript = ( src, callback ) => {\n  var s = document.createElement( 'script' );\n  s.setAttribute( 'src', src );\n  s.onload=callback;\n  document.body.appendChild( s );\n}\naddScript('https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js', ()=>{\n  addScript('https://cdnjs.cloudflare.com/ajax/libs/json2html/2.1.0/json2html.min.js')\n})",
+              "parameterObjects": "",
+              "useStrict": true,
+              "eventsSheetExpanded": false
+            }
+          ],
+          "parameters": []
+        },
+        {
+          "colorB": 228,
+          "colorG": 176,
+          "colorR": 74,
+          "creationTime": 0,
+          "disabled": false,
+          "folded": false,
+          "name": "_DOMapi",
+          "source": "",
+          "type": "BuiltinCommonInstructions::Group",
+          "events": [
+            {
+              "disabled": false,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::JsCode",
+              "inlineCode": "gdjs._DOMapi = {\n    _selected: null,\n    _query: '',\n    /*\n        Selectors\n    */\n    selectEl(query){\n        this._query = query\n        this._selected = $(this._query)\n        return this._selected\n    },\n    selectElbyText(text){\n        this._query += `:contains('${text}')`\n        this._selected = $(this._query)\n        return this._selected\n    },\n    selectElbyRef(ref){\n        this._query = `[ref='${ref}']`\n        this._selected = $(this._query)\n        return this._selected\n    },\n    /*\n        Sets\n    */\n    setText(txt){\n        this._selected.text(txt)\n    },\n    /*\n        Checks\n    */\n    hasEl(){\n        if(this._selected.length) return true\n        else return false\n    },\n    hasClick(){\n        if(!this.hasEl()) return\n        let click = false\n        this._selected.each( (id, el) =>{\n            if(!click){\n                let c = $(el).attr('data-click')\n                click = c == \"true\" ? true : false\n            }\n        })\n        // this._selected.attr('data-click')\n        // if(click) console.log(click)\n        return click\n    },\n    once(el, fn){\n        if(!$(el).attr('data-init')){\n            $(el).attr('data-init', true)\n            fn(el)\n        }\n    },\n    isLoaded(){\n        if(typeof $ == 'function')\n            return true\n        else\n            return false\n    },\n    clearQuery(){\n        this.query = \"\"\n    },\n}",
+              "parameterObjects": "",
+              "useStrict": true,
+              "eventsSheetExpanded": true
+            }
+          ],
+          "parameters": []
+        },
+        {
+          "colorB": 228,
+          "colorG": 176,
+          "colorR": 74,
+          "creationTime": 0,
+          "disabled": false,
+          "folded": false,
+          "name": "_json2html",
+          "source": "",
+          "type": "BuiltinCommonInstructions::Group",
+          "events": [
+            {
+              "disabled": false,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::JsCode",
+              "inlineCode": "gdjs._json2html = {\n    events: \"blur focus focusin focusout resize scroll click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup contextmenu\",\n    setupListeners(el){\n        this.events.split(\" \").forEach( ev =>{\n            $(el).on(ev, function(e){\n                $(this).attr('data-'+ev, 'true')\n            })\n        })\n    },\n    offListeners(el){\n        this.events.split(\" \").forEach( ev =>{\n            // $(el).attr('data-'+ev, 'false')\n            $(el).removeAttr('data-'+ev)\n        })\n    },\n    newEl(type=\"div\",opts = false){\n        let el = {\n            \"<>\": type,\n        }\n        if(opts)\n            Object.keys(opts).forEach( attr =>{\n                el[attr] = opts[attr]\n            })\n        return el\n    },\n    newButton(opts){\n        return this.newEl(\"button\", {\n            onready:function(){ \n                gdjs._json2html.setupListeners(this)\n            },\n            ...opts\n        })\n    },\n    newInput(opts){\n        return this.newEl(\"input\", {\n            onready:function(){ \n                gdjs._json2html.setupListeners(this)\n            },\n            ...opts\n        })\n    }\n}",
+              "parameterObjects": "",
+              "useStrict": true,
+              "eventsSheetExpanded": true
+            }
+          ],
+          "parameters": []
+        },
+        {
+          "colorB": 228,
+          "colorG": 176,
+          "colorR": 74,
+          "creationTime": 0,
+          "disabled": false,
+          "folded": true,
+          "name": "BULMA",
+          "source": "",
+          "type": "BuiltinCommonInstructions::Group",
+          "events": [
+            {
+              "disabled": false,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::JsCode",
+              "inlineCode": "const DOM   = gdjs._json2html\nconst $DOM  = gdjs._DOMapi\nconst BULMA = {\n    form:{\n        control:(opt={}, clas='')=>{\n            return DOM.newEl(\"div\",{ \n                class:\"control \"+clas,\n                ...opt\n            })\n        },\n        field:(opt={}, clas='')=>{\n            return DOM.newEl(\"div\",{\n                class:'field '+clas,\n                ...opt\n            })\n        },\n        input:(opt={}, clas='')=>{\n            return DOM.newInput({\n                class:'input '+clas,\n                ...opt\n            })\n        }\n    },\n    buttons:(opt={}, clas='')=>{\n        return DOM.newEl(\"div\",{\n            class:'buttons '+clas,\n            ...opt\n        })\n    },\n    button:(opt={}, clas='')=>{\n        return DOM.newButton({\n            class:'button '+clas,\n            ...opt\n        })\n    }\n}\n\nwindow.BULMA = BULMA",
+              "parameterObjects": "",
+              "useStrict": true,
+              "eventsSheetExpanded": false
+            }
+          ],
+          "parameters": []
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "",
+      "fullName": "",
+      "functionType": "Action",
+      "name": "onScenePostEvents",
+      "private": false,
+      "sentence": "",
+      "events": [
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "if(gdjs._DOMapi.isLoaded()){\r\n    gdjs._json2html.offListeners( $(\"button\") )\r\n    gdjs._json2html.offListeners( $(\"input\") )\r\n}",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "init",
+      "fullName": "init",
+      "functionType": "Action",
+      "name": "init",
+      "private": false,
+      "sentence": "init",
+      "events": [],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "Select Element",
+      "fullName": "Select Element",
+      "functionType": "Condition",
+      "name": "selectEl",
+      "private": false,
+      "sentence": "Select Element _PARAM1_",
+      "events": [
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "if(gdjs._DOMapi.isLoaded()){\r\n    gdjs._DOMapi.selectEl(eventsFunctionContext.getArgument('query'))\r\n    eventsFunctionContext.returnValue = gdjs._DOMapi.hasEl()\r\n}else{\r\n    eventsFunctionContext.returnValue = false\r\n}",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "codeOnly": false,
+          "defaultValue": "",
+          "description": "Query",
+          "longDescription": "",
+          "name": "query",
+          "optional": false,
+          "supplementaryInformation": "",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Check if selected element has clicked",
+      "fullName": "Has Click",
+      "functionType": "Condition",
+      "name": "hasClick",
+      "private": false,
+      "sentence": "Check if selected element has clicked",
+      "events": [
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "if(gdjs._DOMapi.isLoaded()){\n    eventsFunctionContext.returnValue = gdjs._DOMapi.hasClick()\n}else{\n    eventsFunctionContext.returnValue = false\n}",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "Select Element by Text",
+      "fullName": "Select Element by Text",
+      "functionType": "Condition",
+      "name": "hasText",
+      "private": false,
+      "sentence": "Select Element by Text _PARAM1_",
+      "events": [
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "if(gdjs._DOMapi.isLoaded()){\r\n    gdjs._DOMapi.selectElbyText(eventsFunctionContext.getArgument('text'))\r\n    eventsFunctionContext.returnValue = gdjs._DOMapi.hasEl()\r\n}else{\r\n    eventsFunctionContext.returnValue = false\r\n}",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "codeOnly": false,
+          "defaultValue": "",
+          "description": "Text",
+          "longDescription": "",
+          "name": "text",
+          "optional": false,
+          "supplementaryInformation": "",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Select Element by Ref",
+      "fullName": "Select Element by Ref",
+      "functionType": "Condition",
+      "name": "selectElByRef",
+      "private": false,
+      "sentence": "Select Element by Ref _PARAM1_",
+      "events": [
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "if(gdjs._DOMapi.isLoaded()){\n    gdjs._DOMapi.selectElbyRef(eventsFunctionContext.getArgument('ref'))\n    eventsFunctionContext.returnValue = gdjs._DOMapi.hasEl()\n}else{\n    eventsFunctionContext.returnValue = false\n}\n",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "codeOnly": false,
+          "defaultValue": "",
+          "description": "Reference",
+          "longDescription": "",
+          "name": "ref",
+          "optional": false,
+          "supplementaryInformation": "",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "set text",
+      "fullName": "set text",
+      "functionType": "Action",
+      "name": "setText",
+      "private": false,
+      "sentence": "set text _PARAM1_",
+      "events": [
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "if(gdjs._DOMapi.isLoaded()){\r\n    gdjs._DOMapi.setText(eventsFunctionContext.getArgument('text'))\r\n    eventsFunctionContext.returnValue = gdjs._DOMapi.hasEl()\r\n}else{\r\n    eventsFunctionContext.returnValue = false\r\n}\r\n",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "codeOnly": false,
+          "defaultValue": "",
+          "description": "Text",
+          "longDescription": "",
+          "name": "text",
+          "optional": false,
+          "supplementaryInformation": "",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    }
+  ],
+  "eventsBasedBehaviors": []
+}

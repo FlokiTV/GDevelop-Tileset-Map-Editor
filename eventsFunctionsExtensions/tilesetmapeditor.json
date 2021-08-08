@@ -1,0 +1,153 @@
+{
+  "author": "",
+  "description": "",
+  "extensionNamespace": "",
+  "fullName": "",
+  "helpPath": "",
+  "iconUrl": "",
+  "name": "TileSetMapEditor",
+  "previewIconUrl": "",
+  "shortDescription": "",
+  "version": "",
+  "tags": [],
+  "dependencies": [],
+  "eventsFunctions": [
+    {
+      "description": "init TileSetMapEditor",
+      "fullName": "init TileSetMapEditor",
+      "functionType": "Action",
+      "name": "Function",
+      "private": false,
+      "sentence": "init TileSetMapEditor",
+      "events": [],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "Get Layer",
+      "fullName": "Get Layer",
+      "functionType": "StringExpression",
+      "name": "getLayer",
+      "private": false,
+      "sentence": "",
+      "events": [
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "eventsFunctionContext.returnValue = gdjs._TileSetMapEditor.getLayer()",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "",
+      "fullName": "",
+      "functionType": "Action",
+      "name": "onFirstSceneLoaded",
+      "private": false,
+      "sentence": "",
+      "events": [
+        {
+          "colorB": 228,
+          "colorG": 176,
+          "colorR": 74,
+          "creationTime": 0,
+          "disabled": false,
+          "folded": true,
+          "name": "_GDevelopProjectTemplate",
+          "source": "",
+          "type": "BuiltinCommonInstructions::Group",
+          "events": [
+            {
+              "disabled": false,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::JsCode",
+              "inlineCode": "gdjs._GDevelopProjectTemplate = {\n    UUID: () => {\n        return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>\n            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)\n        )\n    },\n    game(){\n        return {\n            firstLayout: \"\",\n            gdVersion: {\n                build: 99,\n                major: 4,\n                minor: 0,\n                revision: 0\n            },\n            properties: {\n                adaptGameResolutionAtRuntime: true,\n                folderProject: false,\n                orientation: \"landscape\",\n                packageName: \"com.example.gamename\",\n                projectUuid: \"FLK_\"+this.UUID(),\n                scaleMode: \"linear\",\n                sizeOnStartupMode: \"adaptWidth\",\n                useExternalSourceFiles: false,\n                version: \"1.0.0\",\n                name: \"Project\",\n                author: \"\",\n                windowWidth: 800,\n                windowHeight: 600,\n                latestCompilationDirectory: \"\",\n                maxFPS: 60,\n                minFPS: 20,\n                verticalSync: false,\n                platformSpecificAssets: {},\n                loadingScreen: {\n                    backgroundColor: 0,\n                    backgroundFadeInDuration: 0.2,\n                    backgroundImageResourceName: \"\",\n                    gdevelopLogoStyle: \"light\",\n                    logoAndProgressFadeInDuration: 0.2,\n                    logoAndProgressLogoFadeInDelay: 0.2,\n                    minDuration: 1.5,\n                    progressBarColor: 16777215,\n                    progressBarHeight: 20,\n                    progressBarMaxWidth: 200,\n                    progressBarMinWidth: 40,\n                    progressBarWidthPercent: 30,\n                    showGDevelopSplash: true,\n                    showProgressBar: true\n                },\n                extensionProperties: [],\n                platforms: [\n                    {\n                    name: \"GDevelop JS platform\"\n                    }\n                ],\n                currentPlatform: \"GDevelop JS platform\"\n            },\n            resources: {\n                resources: [],\n                resourceFolders: []\n            },\n            objects: [],\n            objectsGroups: [],\n            variables: [],\n            layouts: [],\n            externalEvents: [],\n            eventsFunctionsExtensions: [],\n            externalLayouts: [],\n            externalSourceFiles: []\n        }\n    },\n    resource:()=>{\n        return {\n            alwaysLoaded: false,\n            file: \"{{folder}}/{{filename}}.png\",\n            kind: \"image\",\n            metadata: \"\",\n            name: \"{{folder}}\\\\{{filename}}.png\",\n            smoothed: false,\n            userAdded: true\n        }\n    },\n    object:{\n        sprite:()=>{\n            return {\n            name:\"\",\n            tags: \"\",\n            type: \"Sprite\",\n            updateIfNotVisible: false,\n            variables: [],\n            effects: [],\n            behaviors: [],\n            animations:[]\n        }\n        }\n    },\n    animation:()=>{\n        return {\n            name: \"\", //animation name\n            useMultipleDirections: false,\n            directions: [\n                {\n                looping: false,\n                timeBetweenFrames: 0.07999999821186066,\n                sprites: [] //this.animationSprite\n                }\n            ]\n        }\n    },\n    animationSprite:() =>{\n        return {\n            hasCustomCollisionMask: false,\n            image: \"\", //resource.name\n            points: [],\n            originPoint: {\n                name: \"origine\",\n                x: 0,\n                y: 0\n            },\n            centerPoint: {\n                automatic: true,\n                name: \"centre\",\n                x: 0,\n                y: 0\n            },\n            customCollisionMask: []\n        }\n    },\n    instance(){\n        return {\n          angle: 0,\n          customSize: false,\n          height: 0,\n          layer: \"\",\n          locked: false,\n          name: \"TILESET_tileset\",\n          persistentUuid: this.UUID(),\n          width: 0,\n          x: 0,\n          y: 0,\n          zOrder: 1,\n          numberProperties: [\n            {\n              name: \"animation\",\n              value: 0\n            }\n          ],\n          stringProperties: [],\n          initialVariables: []\n        }\n    },\n    layer:()=>{\n        return {\n          ambientLightColorB: 1869181810,\n          ambientLightColorG: 1700160615,\n          ambientLightColorR: 0,\n          followBaseLayerCamera: false,\n          isLightingLayer: false,\n          name: \"\",\n          visibility: true,\n          cameras: [\n            {\n              defaultSize: true,\n              defaultViewport: true,\n              height: 0,\n              viewportBottom: 1,\n              viewportLeft: 0,\n              viewportRight: 1,\n              viewportTop: 0,\n              width: 0\n            }\n          ],\n          effects: []\n        }\n    },\n    layout:()=>{\n        return {\n            b: 209,\n            disableInputWhenNotFocused: true,\n            mangledName: \"New_32scene\",\n            name: \"New scene\",\n            oglFOV: 90,\n            oglZFar: 500,\n            oglZNear: 1,\n            r: 209,\n            standardSortMethod: true,\n            stopSoundsOnStartup: true,\n            title: \"\",\n            v: 209,\n            uiSettings: {\n                grid: true,\n                gridB: 255,\n                gridG: 180,\n                gridHeight: 32,\n                gridOffsetX: 0,\n                gridOffsetY: 0,\n                gridR: 158,\n                gridType: \"rectangular\",\n                gridWidth: 32,\n                snap: true,\n                windowMask: false,\n                zoomFactor: 1\n            },\n            objectsGroups: [],\n            variables: [],\n            instances: [],\n            objects: [],\n            events: [],\n            layers: [],\n            behaviorsSharedData: []\n        }\n    }\n}",
+              "parameterObjects": "",
+              "useStrict": true,
+              "eventsSheetExpanded": true
+            }
+          ],
+          "parameters": []
+        },
+        {
+          "colorB": 228,
+          "colorG": 176,
+          "colorR": 74,
+          "creationTime": 0,
+          "disabled": false,
+          "folded": true,
+          "name": "_GDevelopProjectZip",
+          "source": "",
+          "type": "BuiltinCommonInstructions::Group",
+          "events": [
+            {
+              "disabled": false,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::JsCode",
+              "inlineCode": "gdjs._GDevelopProjectZip = {\n    generate(_resources, _instances){\n        var zip     = new JSZip();\n        let game    = gdjs._GDevelopProjectTemplate.game()\n        let layout  = gdjs._GDevelopProjectTemplate.layout()\n        //base layer\n        layout.layers.push( gdjs._GDevelopProjectTemplate.layer() )\n        let l0 = gdjs._GDevelopProjectTemplate.layer()\n        l0.name = \"Layer0\"\n        let l1 = gdjs._GDevelopProjectTemplate.layer()\n        l1.name = \"Layer1\"\n        let l2 = gdjs._GDevelopProjectTemplate.layer()\n        l2.name = \"Layer2\"\n        layout.layers.push( l0 )\n        layout.layers.push( l1 )\n        layout.layers.push( l2 )\n        layout.instances = _instances\n        // instances\n        game.layouts.push( layout )\n        _resources.forEach( obj =>{\n            const object  = gdjs._GDevelopProjectTemplate.object.sprite()\n            object.name = obj.name\n            object.tilesetEditor = obj.size\n            /*\n                Add Sprite | SetFolder\n            */\n            var img = zip.folder(obj.name);\n            obj.animations.forEach( anim =>{\n                const res     = gdjs._GDevelopProjectTemplate.resource()\n                const ani     = gdjs._GDevelopProjectTemplate.animation()\n\n                ani.name    = anim.name //rename animation\n                //setup Resource\n                res.name = res.name.replace(\"{{folder}}\", obj.name)\n                res.file = res.file.replace(\"{{folder}}\", obj.name)\n                res.name = res.name.replace(\"{{filename}}\", anim.name)\n                res.file = res.file.replace(\"{{filename}}\", anim.name)\n\n                // setup animationSprite\n                // ani.directions[0].sprites.push({ ...gdjs._GDevelopProjectTemplate.animationSprite }) \n                const spt   = gdjs._GDevelopProjectTemplate.animationSprite()\n                spt.image   = res.name \n\n                ani.directions[0].sprites = [ spt ] // add sprite to animation\n\n                //push animation to object\n                object.animations.push(ani)\n                // push resource to game\n                game.resources.resources.push(res)\n                \n                // add image to zip\n                img.file(anim.name+\".png\", anim.data.replace('data:image/png;base64,', ''), {base64: true});\n            })\n\n            // push object to game\n            game.objects.push(object)\n        })\n        zip.file(\"game.json\", JSON.stringify(game, null, 2));\n        /*\n            Zip and Download\n        */\n        zip.generateAsync({type:\"blob\"})\n            .then(function(content) {\n                saveAs(content, \"game.zip\");\n            });\n    }\n}",
+              "parameterObjects": "",
+              "useStrict": true,
+              "eventsSheetExpanded": true
+            }
+          ],
+          "parameters": []
+        },
+        {
+          "colorB": 228,
+          "colorG": 176,
+          "colorR": 74,
+          "creationTime": 0,
+          "disabled": false,
+          "folded": true,
+          "name": "_TileSetMapEditor",
+          "source": "",
+          "type": "BuiltinCommonInstructions::Group",
+          "events": [
+            {
+              "disabled": false,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::JsCode",
+              "inlineCode": "gdjs._TileSetMapEditor = {\n    __previewSize:{\n        x:0, y:0, //grid size to multiply\n        width:32, height:32\n    },\n    _previewTiles:[],\n    _resources:[],\n    _instances:[],\n    _editor:{\n        layer:1,\n        instance:{\n            name: '',\n            animation: ''\n        }\n    },\n    generate(){\n        gdjs._GDevelopProjectZip.generate(this._resources, this._instances)\n    },\n    preview2resource(name){\n        let object = {\n            name: 'TILESET_'+name,\n            animations:[],\n            size: {...this.__previewSize}\n        }\n        this._previewTiles.forEach(img =>{\n            object.animations.push({ \n                name:`${img.grid.x}_${img.grid.y}`,                         //animation name\n                image: `${object.name}\\\\${img.grid.x}_${img.grid.y}.png`,   //resource reference,\n                data: img.data,\n            })\n        })\n        this._resources.push(object)\n        this._previewTiles = []\n    },\n    setInstance(name, animation){\n        this._editor.instance.name = name\n        this._editor.instance.animation = animation\n    },\n    getResource(name){\n        let tiles = this._resources.filter( tile => tile.name == name)\n        tiles = tiles[0] || false\n        return tiles\n    },\n    getAnimation(res, name){\n        let ani = res.animations.filter( an => an.name == name)\n        ani = ani[0] || false\n        return ani\n    },\n    getAnimationKey(res, name){\n        let key = false\n        res.animations.map( (an, index) =>{\n            if(an.name == name)\n                key = index\n        })\n        return key\n    },\n    loadResouceTexture(name, animation, img){\n        let res = this.getResource(name)\n        if(!res) return false\n        let ani = this.getAnimation(res, animation)\n        if(!ani) return false\n        ani.BaseTexture = PIXI.Texture.from(img,{\n            scaleMode: PIXI.SCALE_MODES.NEAREST\n        })//new PIXI.BaseTexture(img)\n    },\n    getResourceTexture(name, animation){\n        let res = this.getResource(name)\n        if(!res) return false\n        let ani = this.getAnimation(res, animation)\n        if(!ani) return false\n        if(!ani.BaseTexture) return false\n        return ani.BaseTexture\n    },\n    setLayer(name){\n        return this._editor.layer = name\n    },\n    getLayer(){\n        return \"Layer\"+this._editor.layer\n    },\n    removeInstance(x,y,layer){\n        let id = -1\n        this._instances.map((inst, index) => { \n            if(inst.x == x && inst.y == y && inst.layer == layer)\n                id = index\n        })\n        console.log(id)\n        if(id > -1)\n        this._instances.splice(id,1)\n    },\n    addInstance(name, animation, x, y, layer){\n        let resource = this.getResource(name)\n        let instance = gdjs._GDevelopProjectTemplate.instance()\n        instance.layer  = layer\n        instance.name   = name\n        instance.x = x\n        instance.y = y\n        instance.numberProperties[0].value = this.getAnimationKey(resource, animation)\n        this._instances.push(instance)\n    }\n}",
+              "parameterObjects": "",
+              "useStrict": true,
+              "eventsSheetExpanded": true
+            }
+          ],
+          "parameters": []
+        },
+        {
+          "colorB": 228,
+          "colorG": 176,
+          "colorR": 74,
+          "creationTime": 0,
+          "disabled": false,
+          "folded": false,
+          "name": "_TileSetMapEditorIcons",
+          "source": "",
+          "type": "BuiltinCommonInstructions::Group",
+          "events": [
+            {
+              "disabled": false,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::JsCode",
+              "inlineCode": "gdjs._TileSetMapEditorIcons = {\n    edit:{\n        name: 'pencil-outline',\n        svg: `<svg style=\"width:24px;height:24px\" viewBox=\"0 0 24 24\">\n                <path fill=\"currentColor\" d=\"M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z\" />\n            </svg>`\n    },\n    eraser:{\n        name: 'eraser',\n        svg: `<svg style=\"width:24px;height:24px\" viewBox=\"0 0 24 24\">\n                <path fill=\"currentColor\" d=\"M16.24,3.56L21.19,8.5C21.97,9.29 21.97,10.55 21.19,11.34L12,20.53C10.44,22.09 7.91,22.09 6.34,20.53L2.81,17C2.03,16.21 2.03,14.95 2.81,14.16L13.41,3.56C14.2,2.78 15.46,2.78 16.24,3.56M4.22,15.58L7.76,19.11C8.54,19.9 9.8,19.9 10.59,19.11L14.12,15.58L9.17,10.63L4.22,15.58Z\" />\n            </svg>`\n    },\n    stamper:{\n        name: 'stamper',\n        svg: `<svg style=\"width:24px;height:24px\" viewBox=\"0 0 24 24\">\n                <path fill=\"currentColor\" d=\"M12,3A3,3 0 0,0 9,6C9,9 14,13 6,13A2,2 0 0,0 4,15V17H20V15A2,2 0 0,0 18,13C10,13 15,9 15,6C15,4 13.66,3 12,3M6,19V21H18V19H6Z\" />\n            </svg>`\n    },\n    grid:{\n        name: 'grid',\n        svg:`\n        <svg style=\"width:24px;height:24px\" viewBox=\"0 0 24 24\">\n            <path fill=\"currentColor\" d=\"M10,4V8H14V4H10M16,4V8H20V4H16M16,10V14H20V10H16M16,16V20H20V16H16M14,20V16H10V20H14M8,20V16H4V20H8M8,14V10H4V14H8M8,8V4H4V8H8M10,14H14V10H10V14M4,2H20A2,2 0 0,1 22,4V20A2,2 0 0,1 20,22H4C2.92,22 2,21.1 2,20V4A2,2 0 0,1 4,2Z\" />\n        </svg>`\n    },\n    gridOff:{\n        name: 'grid-off',\n        svg:`\n        <svg style=\"width:24px;height:24px\" viewBox=\"0 0 24 24\">\n            <path fill=\"currentColor\" d=\"M0,2.77L1.28,1.5L22.5,22.72L21.23,24L19.23,22H4C2.92,22 2,21.1 2,20V4.77L0,2.77M10,4V7.68L8,5.68V4H6.32L4.32,2H20A2,2 0 0,1 22,4V19.7L20,17.7V16H18.32L16.32,14H20V10H16V13.68L14,11.68V10H12.32L10.32,8H14V4H10M16,4V8H20V4H16M16,20H17.23L16,18.77V20M4,8H5.23L4,6.77V8M10,14H11.23L10,12.77V14M14,20V16.77L13.23,16H10V20H14M8,20V16H4V20H8M8,14V10.77L7.23,10H4V14H8Z\" />\n        </svg>`\n    },\n    layers:{\n        name:'layers',\n        svg:`\n        <svg style=\"width:24px;height:24px\" viewBox=\"0 0 24 24\">\n            <path fill=\"currentColor\" d=\"M12,16L19.36,10.27L21,9L12,2L3,9L4.63,10.27M12,18.54L4.62,12.81L3,14.07L12,21.07L21,14.07L19.37,12.8L12,18.54Z\" />\n        </svg>`\n    },\n    eye:{\n        name: 'eye',\n        svg:`<svg style=\"width:24px;height:24px\" viewBox=\"0 0 24 24\">\n            <path fill=\"currentColor\" d=\"M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z\" />\n        </svg>`\n    },\n    eyeOff:{\n        name: 'eye-off',\n        svg:`<svg style=\"width:24px;height:24px\" viewBox=\"0 0 24 24\">\n                <path fill=\"currentColor\" d=\"M11.83,9L15,12.16C15,12.11 15,12.05 15,12A3,3 0 0,0 12,9C11.94,9 11.89,9 11.83,9M7.53,9.8L9.08,11.35C9.03,11.56 9,11.77 9,12A3,3 0 0,0 12,15C12.22,15 12.44,14.97 12.65,14.92L14.2,16.47C13.53,16.8 12.79,17 12,17A5,5 0 0,1 7,12C7,11.21 7.2,10.47 7.53,9.8M2,4.27L4.28,6.55L4.73,7C3.08,8.3 1.78,10 1,12C2.73,16.39 7,19.5 12,19.5C13.55,19.5 15.03,19.2 16.38,18.66L16.81,19.08L19.73,22L21,20.73L3.27,3M12,7A5,5 0 0,1 17,12C17,12.64 16.87,13.26 16.64,13.82L19.57,16.75C21.07,15.5 22.27,13.86 23,12C21.27,7.61 17,4.5 12,4.5C10.6,4.5 9.26,4.75 8,5.2L10.17,7.35C10.74,7.13 11.35,7 12,7Z\" />\n            </svg>`\n    },\n    cameraControl:{\n        name: 'camera-control',\n        svg:`\n            <svg style=\"width:24px;height:24px\" viewBox=\"0 0 24 24\">\n                <path fill=\"currentColor\" d=\"M9,12C9,11.19 9.3,10.5 9.89,9.89C10.5,9.3 11.19,9 12,9C12.81,9 13.5,9.3 14.11,9.89C14.7,10.5 15,11.19 15,12C15,12.81 14.7,13.5 14.11,14.11C13.5,14.7 12.81,15 12,15C11.19,15 10.5,14.7 9.89,14.11C9.3,13.5 9,12.81 9,12M5.53,8.44L7.31,10.22L5.53,12L7.31,13.78L5.53,15.56L2,12L5.53,8.44M8.44,18.47L10.22,16.69L12,18.47L13.78,16.69L15.56,18.47L12,22L8.44,18.47M18.47,15.56L16.69,13.78L18.47,12L16.69,10.22L18.47,8.44L22,12L18.47,15.56M15.56,5.53L13.78,7.31L12,5.53L10.22,7.31L8.44,5.53L12,2L15.56,5.53Z\" />\n            </svg>\n        `\n    },\n    contentSave:{\n        name: 'content-save',\n        svg: `\n        <svg style=\"width:24px;height:24px\" viewBox=\"0 0 24 24\">\n            <path fill=\"currentColor\" d=\"M15,9H5V5H15M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3Z\" />\n        </svg>`\n    },\n    rect:{\n        name: 'rectangle-outline',\n        svg:`<svg style=\"width:24px;height:24px\" viewBox=\"0 0 24 24\">\n                <path fill=\"currentColor\" d=\"M4,6V19H20V6H4M18,17H6V8H18V17Z\" />\n            </svg>`\n    }\n}",
+              "parameterObjects": "",
+              "useStrict": true,
+              "eventsSheetExpanded": true
+            }
+          ],
+          "parameters": []
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    }
+  ],
+  "eventsBasedBehaviors": []
+}
